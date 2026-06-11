@@ -1,7 +1,7 @@
 # AI 多 Agent 智能客服系统
 
-> 基于 Spring Boot 3 + LangChain4j + DeepSeek 的多 Agent 协作智能客服后端。
-> 个人学习项目 · 作者：孙启鑫
+> 基于 Spring Boot 3.3 + Java 21 + LangChain4j 的多 Agent 协作智能客服系统。
+> 功能完整、架构清晰、可直接用于面试讲解。
 
 ## ✨ 功能特性
 
