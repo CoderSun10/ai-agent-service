@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.agent.mapper.ConversationMapper">
+
+    <update id="updateStatus">
+        UPDATE conversation
+        SET status = #{status},
+            update_time = NOW()
+        WHERE id = #{convId}
+    </update>
+
+    <update id="markConfidenceLow">
+        UPDATE conversation
+        SET confidence_low = 1,
+            update_time = NOW()
+        WHERE id = #{convId}
+    </update>
+
+    <select id="selectByUserId" resultType="com.agent.entity.Conversation">
+        SELECT *
+        FROM conversation
+        WHERE user_id = #{userId}
+          AND deleted = 0
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

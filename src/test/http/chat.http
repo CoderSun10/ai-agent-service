@@ -1,0 +1,66 @@
+### ============================================================
+### AI 多 Agent 智能客服系统 — 接口联调脚本（IDEA HTTP Client）
+### ============================================================
+
+@host = http://localhost:8080
+@token = 粘贴登录返回的 token
+
+### 1. 登录（获取 token）
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "demo",
+  "password": "123456"
+}
+
+### 2. 新建会话
+POST {{host}}/api/chat/conversation
+Authorization: {{token}}
+
+### 3. 上传知识库文档（建立索引）
+POST {{host}}/api/knowledge/upload
+Authorization: {{token}}
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="title"
+
+退换货政策
+------boundary
+Content-Disposition: form-data; name="file"; filename="refund-policy.txt"
+Content-Type: text/plain
+
+本店支持 7 天无理由退货，商品需保持完好，不影响二次销售。生鲜类、定制类商品不支持无理由退货。
+------boundary--
+
+### 4. 知识库文档列表
+GET {{host}}/api/knowledge/list
+Authorization: {{token}}
+
+### 5. 流式对话 — 知识库问答（走 RAG）
+GET {{host}}/api/chat/stream?conversationId=替换为会话ID&message=你们的退货政策是什么
+Authorization: {{token}}
+Accept: text/event-stream
+
+### 6. 流式对话 — 业务工具（查订单）
+GET {{host}}/api/chat/stream?conversationId=替换为会话ID&message=帮我查一下订单 O20260601001 的状态
+Authorization: {{token}}
+Accept: text/event-stream
+
+### 7. 流式对话 — 业务工具（退款）
+GET {{host}}/api/chat/stream?conversationId=替换为会话ID&message=订单 O20260601002 我要退款，质量问题
+Authorization: {{token}}
+Accept: text/event-stream
+
+### 8. 会话历史
+GET {{host}}/api/chat/history/替换为会话ID
+Authorization: {{token}}
+
+### 9. 会话列表
+GET {{host}}/api/chat/conversations
+Authorization: {{token}}
+
+### 10. 登出
+POST {{host}}/api/auth/logout
+Authorization: {{token}}

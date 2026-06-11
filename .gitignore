@@ -1,0 +1,29 @@
+# Maven
+target/
+*.jar
+*.war
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+.DS_Store
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Build
+*.class
+*.log
+
+# Node
+node_modules/
+dist/
+build/
+
+# System
+Thumbs.db
